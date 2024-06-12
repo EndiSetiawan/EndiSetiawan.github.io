@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Astronot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .card .photo {
+            margin-bottom: 15px;
+        }
+
+        .card .photo img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            border: 5px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card .social-icons {
+            
+            margin-top: 20px;
+        }
+
+        .card .social-icons a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .card:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            animation: border-dance 2s linear infinite;
+        }
+
+        @keyframes border-dance {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10px, 10px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .button {
+            color: #e28f22;
+            background-color: rgba(255, 255, 255, 0.3);
+            position: fixed;
+            padding: 7px 10px 7px 10px;
+            border-radius: 5px;
+        }
+
+        .button a {
+            text-decoration: none;
+            color: rgb(255, 187, 0);
+            
+            
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button">
+        <a href="index.html"><b>Back</b></a>
+    </div>
+
+
+    <div class="video-background">
+        <video autoplay loop muted>
+            <source src="bg-langit.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="card" id="profile-card">
+        <div class="photo">
+            <img src="profileku.jpg" alt="Foto Astronot">
+        </div>
+        <div class="content">
+            <h1>Endi Setiawan</h1>
+           
+            <br>============================
+            <br>
+            <p>Seorang Pemuda yang suka coding</p>
+            ============================
+            <br>
+            <br>
+                 
+            <div class="social-icons" id="social-icons">
+                WhatsApp :     >>>>>  <a href="https://wa.me/6289647807008" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/70px-WhatsApp.svg.png" alt="WhatsApp" width="30"></a>
+             <br>
+                <a href="https://instagram.com/nd_lyl1" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" width="30"></a> <<<<< : Instagram 
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('profile-card').addEventListener('click', function() {
+            var socialIcons = document.getElementById('social-icons');
+            if (socialIcons.style.display === 'none' || socialIcons.style.display === '') {
+                socialIcons.style.display = 'block';
+            } else {
+                socialIcons.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
