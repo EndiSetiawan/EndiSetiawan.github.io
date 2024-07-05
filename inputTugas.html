@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
-
-
 <head>
   <title>INPUT DATA KE SPREAD SHEET</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
-    /*  */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
     body {
       background-color: #0c0a0a;
     }
@@ -19,8 +15,7 @@
       border: 2px solid #da0808;
       border-radius: 10px;
       padding: 20px;
-      font-family: 'Poppins', sans-serif;;
-      
+      font-family: 'Poppins', sans-serif;
     }
     #form-container h2 {
       text-align: center;
@@ -56,24 +51,21 @@
 <body>
   <div id="form-container">
     <h2>INPUT TUGAS SEKOLAH</h2>
-    <!-- akses link script app -->
-    <form action="https://script.google.com/macros/s/AKfycbxjs1S417LGMX_lBFXV1wDkjMNfsPh2sc_AZ5RbViRvBNA0s36pc26-TIElNS0tCcZz/exec" method="post">
-    <!-- end akses  -->
-
-     <b>   <label for="mapel">Mata Pelajaran:</label>
+    <form action="https://script.google.com/macros/s/AKfycbzqcIjIT0YuvTzjcGIRccmYNKvivzyI_pRWbniXHyxhnhqNKF51NXyOX72NI9nxjSXr6A/exec" 
+    method="post">
+      <label for="mapel">Mata Pelajaran:</label>
       <input type="text" id="mapel" name="mapel" required>
       <label for="tugas">Tugas:</label>
       <input type="text" id="tugas" name="tugas" required>
       <label for="praktek">Praktek:</label>
       <input type="text" id="praktek" name="praktek" required>
-    </b>
+      <label for="due_date">Tanggal Pengumpulan:</label>
+      <input type="date" id="due_date" name="due_date" required>
       <input type="submit" value="Simpan Data">
     </form>
   </div>
-
   <div id="footer">
     Masukkan Tugas Anda
   </div>
-
 </body>
 </html>
