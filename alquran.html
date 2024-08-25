@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al-Qur'an Online</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    @font-face {
+    font-family: 'ayat quran 2 Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('ayat quran 2 Regular'), url('fonts/AyatQuran2-PVKGm.woff') format('woff');
+    }
+
+   
+
+
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('Walp33.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat:no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .kembali {
+      background-color: #17aa96;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-right: 20px;
+      text-decoration: none;
+    }
+    .title {
+      font-size: 1.5em;
+      color: #333;
+      
+    }
+
+    .title img {
+      height: auto;
+      width: 200px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      margin-top: 40px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    p {
+        
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #555;
+    }
+    .ayat-container {
+  display: flex;
+  align-items: flex-start; /* Menyelaraskan elemen sesuai dengan bagian atas */
+  margin: 0;
+}
+@font-face {
+  font-family: 'NamaFont';
+  src: url('fonts/fontquran.ttf') format('truetype');
+}
+
+.ayat-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Mengatur elemen agar berada di akhir kontainer */
+  margin-bottom: 10px;
+}
+
+.arab {
+  font-family: "Amiri", serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: right;
+  font-size: 30px;
+  color: black;
+  margin-right: 10px; /* Spasi antara elemen */
+}
+
+.ayat-number {
+  font-family: 'AyatQuran', sans-serif;
+  font-size: 20px;
+  color: black;
+  text-align: right;
+}
+
+.ayat {
+  font-family: 'AyatQuran', sans-serif;
+  display: inline;
+  font-size: 20px;
+  color: black;
+  text-align: right;
+}
+
+
+    .sumber {
+      text-align: right;
+      font-style: italic;
+      color: #777;
+    }
+    #loading {
+      display: none;
+      font-weight: bold;
+      color: #17aa96;
+    }
+    #ayatList {
+      margin-top: 20px;
+    }
+    select {
+      font-variant: small-caps;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; 
+    position: relative;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23000" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>'); 
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 10px 10px;
+}
+
+
+select:hover {
+    border-color: #17aa96;
+    box-shadow: 0 0 5px rgba(23, 170, 150, 0.5);
+}
+
+
+option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+
+select option:hover {
+    background-color: #e8f5f2;
+    color: #17aa96;
+}
+
+    .tafsir {
+        text-align: left;
+        color: #17aa96;
+    }
+
+    .terjemah {
+        text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="index.html" class="kembali">Kembali</a>
+    <h1 class="title"> <img src="Judul.png"></h1>
+  </div>
+
+  <div class="container">
+    <select id="surahSelect" onchange="handleSurahSelect()">
+      <!-- Options akan diisi dengan script JavaScript -->
+    </select>
+
+    <div id="loading">Loading...</div>
+    <div id="ayatList"></div>
+  </div>
+
+  <script>
+    // Fungsi untuk mengonversi angka ke angka Arab
+    function convertToArabicNumerals(number) {
+      const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+      return number.toString().split('').map(digit => arabicNumerals[digit]).join('');
+    }
+  
+    async function showAyat(nomorSurah) {
+      const url = `https://api.npoint.io/99c279bb173a6e28359c/surat/${nomorSurah}`; // Ganti dengan URL Firebase jika diperlukan
+  
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('ayatList').innerHTML = '';
+  
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+  
+        const data = await response.json();
+        console.log('Data Ayat dari API:', data); // Debugging
+  
+        const ayatListDiv = document.getElementById('ayatList');
+        if (data.length > 0) {
+          ayatListDiv.innerHTML = data.map(ayat => `
+            <div>
+              
+              
+              <p class="arab"><strong></strong>${ayat.ar}
+              </p>
+
+              <p class="ayat"> ﴾${convertToArabicNumerals(ayat.nomor)}﴿</p>
+             
+              <p class="tafsir"><strong></strong> ${ayat.tr}</p>
+              <p class="terjemah"><strong></strong> ${ayat.id}</p>
+            </div>
+          `).join('');
+        } else {
+          ayatListDiv.innerHTML = '<p>Ayat tidak ditemukan.</p>';
+        }
+        
+      } catch (error) {
+        console.error(error);
+        const ayatListDiv = document.getElementById('ayatList');
+        ayatListDiv.innerHTML = '<p>Terjadi kesalahan saat memuat data.</p>';
+      } finally {
+        document.getElementById('loading').style.display = 'none';
+      }
+    }
+  
+    async function handleSurahSelect() {
+      const nomorSurah = document.getElementById('surahSelect').value;
+      if (nomorSurah) {
+        await showAyat(nomorSurah);
+      }
+    }
+  
+    async function populateSurahOptions() {
+      const url = 'https://api.npoint.io/99c279bb173a6e28359c/data'; // Ganti dengan URL Firebase jika diperlukan
+      const response = await fetch(url);
+      const data = await response.json();
+      const select = document.getElementById('surahSelect');
+      select.innerHTML = data.map(surah => `<option value="${surah.nomor}">${surah.nama}</option>`).join('');
+    }
+  
+    document.addEventListener('DOMContentLoaded', populateSurahOptions);
+  </script>
+  
+</body>
+</html>
