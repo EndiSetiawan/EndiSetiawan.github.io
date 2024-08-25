@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        body {
+            background-image: url('Walp33.jpg');
+            background-size: cover;
+            background-color: #13a795;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        #loading video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #ff3d00;
+            border-right: 8px solid #ffdd00;
+            border-bottom: 8px solid #3dff00;
+            border-left: 8px solid #00b0ff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .header {
+            background-color: #00000088;
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 1px;
+            text-align: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            color: #FFD700;
+            text-shadow: 
+                0 0 10px #FFD700,
+                0 0 20px #FFD700,
+                0 0 30px #FFA500,
+                0 0 40px #FFA500,
+                0 0 50px #FF8C00,
+                0 0 60px #FF8C00,
+                0 0 70px #FF8C00; 
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background-image: url('https://img.freepik.com/premium-vector/men-going-mosque-vector-illustration_80802-1594.jpg');
+            background-size: cover;
+            background-position: center top;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            padding-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar::before {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.5); 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; 
+        }
+
+        .navbar a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            position: relative; 
+            z-index: 3; 
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .navbar a.active {
+            background-color: #666;
+            color: white;
+        }
+
+        @media screen and (max-width: 600px) {
+            .header {
+                padding: 10px;
+            }
+            .tombol {
+                margin: 20px;
+            }
+        }
+
+        .header img {
+          max-width: 60px;
+          margin-left: auto;
+        }
+
+        a {
+            text-decoration: none;
+
+        }
+
+        .hadist a, .alquran a{
+            color: white
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            margin-top: -250px;
+            position: fixed;
+            background: rgb(0,0,0);
+            background: linear-gradient(29deg, rgba(0,0,0,1) 0%, rgba(6,18,19,1) 17%, rgba(12,34,37,1) 36%, rgba(15,43,46,1) 48%, rgba(15,43,46,1) 64%, rgba(15,43,46,1) 80%);
+            color: #ddd;
+            text-align: center;
+            width: 200px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 30px 50px #505050;
+            overflow: hidden;
+        }
+
+        .slider {
+            width: 100%;
+            display: flex;
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        .alquran, .hadist {
+            min-width: 100%;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .alquran.active, .hadist.active {
+            display: block;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            padding: 2px;
+            cursor:pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.left:hover,.arrow.right:hover {
+            box-shadow: inset 0 0 30px rgb(255, 238, 0);
+            border-radius: 20px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+    
+    </style>
+</head>
+<body>
+
+<div id="loading">
+    <video autoplay loop muted>
+        <source src="bg-langit.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="spinner"></div>
+    <p>Memuat...</p>
+</div>
+
+<div id="main-content" class="hidden">
+    <div class="header">
+        <h1>Sinar</h1>
+        <h2><br>Islamic</h2>
+        <img src="ilustrasidoa.png">
+    </div>
+
+   
+
+    <div class="box-container">
+        <div class="box">
+            <div class="slider">
+                <img src="https://icons.iconarchive.com/icons/icons8/ios7/128/Arrows-Back-icon.png" width="128" height="128" class="arrow left" onclick="prevSlide()">
+                <div class="alquran active"><a href="alquran.html">
+                    <img src="alquran.png" style="width: 150px; height: auto;">
+                    <h3>Al-Qur'an</h3>
+                    </a>
+                </div>
+               <div class="hadist">
+                <a href="hadist.html" >
+                    <img src="hadist.png" style="width: 150px; height: auto;">
+                    <h3>Hadist</h3>
+                </a>
+                </div>
+                <img src="https://icons.iconarchive.com/icons/icons8/ios7/32/Arrows-Forward-icon.png" width="32" height="32" class="arrow right" onclick="nextSlide()">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const loading = document.getElementById('loading');
+        const mainContent = document.getElementById('main-content');
+        const alquran = document.querySelector('.alquran');
+        const hadist = document.querySelector('.hadist');
+
+        setTimeout(function() {
+            loading.style.display = 'none';
+            mainContent.classList.remove('hidden');
+        }, 5000);
+
+        let currentSlide = 0;
+        const slides = [alquran, hadist];
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        window.nextSlide = function() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        window.prevSlide = function() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+    });
+</script>
+
+</body>
+</html>
